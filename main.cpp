@@ -22,7 +22,8 @@ int makeEncKey(int phi) {
 }
 
 int makeDecKey(int e,int phi) {
-    int d = 2;
+    int d = 2; // 1 dosent make sense in this math stuff so use 2
+
     while ((e*d)%phi != 1) {
         d++;
     }
@@ -30,7 +31,7 @@ int makeDecKey(int e,int phi) {
 }
 
 int modExp(int base, int exp, int mod) {
-    long long result = 1;
+    long long result = 1;       //using long coz int cant handel the resultant value
     long long b = base % mod;
 
     while (exp > 0) {
@@ -52,12 +53,13 @@ int main() {
     int phi = (p-1)*(q-1); //this is the greatest possible value
 
     int e = makeEncKey(phi); // get the public key with function
-    int d = makeDecKey(e, phi); //
+    int d = makeDecKey(e, phi); //get private key
 
     int msg = 90;
 
-    int enc = modExp(msg, e, n);
-    int dec = modExp(enc, d, n);
+    int enc = modExp(msg, e, n);// this will give encrypted value witht the public key
+
+    int dec = modExp(enc, d, n);//this will give decrypted value with the private key
 
     cout << dec << endl;
 
